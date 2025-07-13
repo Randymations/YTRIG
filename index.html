@@ -11,16 +11,21 @@
     <h1>YTRIG</h1>
     <h2>YouTube Revanced Icon Generator</h2>
 
-    <div id="dropzone" class="dropzone">
-      <p>📂 Drop two square PNGs here<br><small>or click to browse</small></p>
-      <input type="file" id="fileInput" multiple accept="image/png" />
+    <div class="upload-section">
+      <div id="foregroundZone" class="dropzone">
+        <p>Drop <strong>Foreground PNG</strong> here<br><small>or click to browse</small></p>
+        <input type="file" id="foregroundInput" accept="image/png" />
+      </div>
+
+      <div id="backgroundZone" class="dropzone">
+        <p>Drop <strong>Background PNG</strong> here<br><small>or click to browse</small></p>
+        <input type="file" id="backgroundInput" accept="image/png" />
+      </div>
     </div>
 
     <div class="notice">
-      <p><strong>⚠️ Notice:</strong> Foreground and Background images must be <strong>PNG squares of matching resolution</strong>.<br>
-      <br>🔸 Recommended resolution: <strong>1075x1075</strong><br>
-      🔸 Leave ~22.3% padding on each side of the are you want entirely visible on the final icon.<br>
-      For 1075x1075, this means <strong>~240px padding on left/right</strong>.</p>
+      <p><strong>Notice:</strong> Foreground and Background images must be PNG squares of matching resolution.<br>
+      Recommended resolution is 1075x1075 pixels. Leave approximately 22.3% padding on each side of the are you want entirely visible on the final icon. For a 1075x1075 pixel image, this means 240 pixels on each side.</p>
     </div>
 
     <button id="generateBtn">Generate ZIP</button>

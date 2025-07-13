@@ -11,7 +11,7 @@ body {
   padding: 2em;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  max-width: 480px;
+  max-width: 500px;
   width: 100%;
   text-align: center;
 }
@@ -24,17 +24,24 @@ h1 {
 h2 {
   font-size: 1.1em;
   color: #555;
-  margin-bottom: 1.2em;
+  margin-bottom: 1.5em;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-bottom: 1em;
 }
 
 .dropzone {
   border: 2px dashed #aaa;
   border-radius: 6px;
-  padding: 2em;
+  padding: 1.8em;
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s;
-  margin-bottom: 1em;
   position: relative;
+  background: #fafafa;
 }
 
 .dropzone.dragover {
@@ -44,7 +51,7 @@ h2 {
 
 .dropzone p {
   margin: 0;
-  font-size: 1.1em;
+  font-size: 1.05em;
   color: #444;
 }
 
@@ -62,7 +69,7 @@ h2 {
   padding: 1em;
   font-size: 0.9em;
   border-radius: 6px;
-  margin-bottom: 1em;
+  margin-bottom: 1.2em;
   text-align: left;
 }
 

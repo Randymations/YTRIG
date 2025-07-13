@@ -1,52 +1,68 @@
-const dropzone = document.getElementById("dropzone");
-const fileInput = document.getElementById("fileInput");
+const fgInput = document.getElementById("foregroundInput");
+const bgInput = document.getElementById("backgroundInput");
+const fgZone = document.getElementById("foregroundZone");
+const bgZone = document.getElementById("backgroundZone");
+const statusText = document.getElementById("status");
 const generateBtn = document.getElementById("generateBtn");
-const status = document.getElementById("status");
 
-let imageFiles = [];
+let fgFile = null;
+let bgFile = null;
 
-dropzone.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  dropzone.classList.add("dragover");
-});
+// Shared dropzone behavior
+function setupDropzone(zone, input, assignFile) {
+  zone.addEventListener("dragover", e => {
+    e.preventDefault();
+    zone.classList.add("dragover");
+  });
 
-dropzone.addEventListener("dragleave", () => {
-  dropzone.classList.remove("dragover");
-});
+  zone.addEventListener("dragleave", () => {
+    zone.classList.remove("dragover");
+  });
 
-dropzone.addEventListener("drop", (e) => {
-  e.preventDefault();
-  dropzone.classList.remove("dragover");
-  handleFiles(e.dataTransfer.files);
-});
+  zone.addEventListener("drop", e => {
+    e.preventDefault();
+    zone.classList.remove("dragover");
+    const file = [...e.dataTransfer.files].find(f => f.type === "image/png");
+    if (file) {
+      assignFile(file);
+    } else {
+      alert("Only PNG files are supported.");
+    }
+  });
 
-fileInput.addEventListener("change", (e) => {
-  handleFiles(e.target.files);
-});
-
-function handleFiles(files) {
-  const pngs = [...files].filter(file => file.type === "image/png");
-  if (pngs.length !== 2) {
-    alert("Please select exactly two PNG images.");
-    return;
-  }
-  imageFiles = pngs;
-  status.textContent = `Loaded: ${pngs[0].name}, ${pngs[1].name}`;
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+    if (file && file.type === "image/png") {
+      assignFile(file);
+    } else {
+      alert("Only PNG files are supported.");
+    }
+  });
 }
 
+// File assignment
+setupDropzone(fgZone, fgInput, file => {
+  fgFile = file;
+  statusText.textContent = `Foreground loaded: ${file.name}`;
+});
+
+setupDropzone(bgZone, bgInput, file => {
+  bgFile = file;
+  statusText.textContent = `Background loaded: ${file.name}`;
+});
+
+// Main generation
 generateBtn.addEventListener("click", async () => {
-  if (imageFiles.length !== 2) {
-    alert("You must select or drop exactly two PNG images.");
+  if (!fgFile || !bgFile) {
+    alert("Both foreground and background PNGs must be provided.");
     return;
   }
 
-  const [fgFile, bgFile] = imageFiles;
-
-  status.textContent = "Loading images...";
+  statusText.textContent = "Loading images...";
   const [fgImg, bgImg] = await Promise.all([loadImage(fgFile), loadImage(bgFile)]);
 
   if (fgImg.width !== fgImg.height || bgImg.width !== bgImg.height || fgImg.width !== bgImg.width) {
-    alert("Both images must be square and of the same size.");
+    alert("Both images must be square and the same resolution.");
     return;
   }
 
@@ -71,19 +87,18 @@ generateBtn.addEventListener("click", async () => {
     folder.file("ic_launcher_round.png", canvasToBlob(combined));
   }
 
-  status.textContent = "Generating ZIP...";
+  statusText.textContent = "Generating ZIP...";
   const blob = await zip.generateAsync({ type: "blob" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = "ytrig_output.zip";
   link.click();
-  status.textContent = "Done! ZIP downloaded.";
+  statusText.textContent = "Download complete.";
 });
 
-// Utility Functions
-
+// Helpers
 function loadImage(file) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const img = new Image();
     img.onload = () => resolve(img);
     img.src = URL.createObjectURL(file);
