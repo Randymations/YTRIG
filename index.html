@@ -3,25 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mipmap Icon Generator</title>
+  <title>YTRIG - YouTube Revanced Icon Generator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Mipmap Icon Generator</h1>
-    <div class="upload-section">
-      <label>Foreground PNG:
-        <input type="file" id="foregroundInput" accept="image/png"/>
-      </label>
-      <label>Background PNG:
-        <input type="file" id="backgroundInput" accept="image/png"/>
-      </label>
+    <h1>YTRIG</h1>
+    <h2>YouTube Revanced Icon Generator</h2>
+
+    <div id="dropzone" class="dropzone">
+      <p>📂 Drop two square PNGs here<br><small>or click to browse</small></p>
+      <input type="file" id="fileInput" multiple accept="image/png" />
     </div>
+
+    <div class="notice">
+      <p><strong>⚠️ Notice:</strong> Foreground and Background images must be <strong>PNG squares of matching resolution</strong>.<br>
+      <br>🔸 Recommended resolution: <strong>1075x1075</strong><br>
+      🔸 Leave ~22.3% padding on each side of the are you want entirely visible on the final icon.<br>
+      For 1075x1075, this means <strong>~240px padding on left/right</strong>.</p>
+    </div>
+
     <button id="generateBtn">Generate ZIP</button>
     <p id="status"></p>
   </div>
 
-  <!-- JSZip library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="script.js"></script>
 </body>
