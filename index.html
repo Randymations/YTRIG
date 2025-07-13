@@ -1,1 +1,28 @@
-Test post, please ignore.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mipmap Icon Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Mipmap Icon Generator</h1>
+    <div class="upload-section">
+      <label>Foreground PNG:
+        <input type="file" id="foregroundInput" accept="image/png"/>
+      </label>
+      <label>Background PNG:
+        <input type="file" id="backgroundInput" accept="image/png"/>
+      </label>
+    </div>
+    <button id="generateBtn">Generate ZIP</button>
+    <p id="status"></p>
+  </div>
+
+  <!-- JSZip library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
