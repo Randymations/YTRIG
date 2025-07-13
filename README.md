@@ -1,4 +1,4 @@
 # YTRIG
-## YouTube Revanced Icon Generator
+## YouTube ReVanced Icon Generator
 
 https://randymations.github.io/YTRIG/
